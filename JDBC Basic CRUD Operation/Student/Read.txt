@@ -1,0 +1,42 @@
+package jdbc_task1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+public class Find {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		
+		//1-load or register 
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		//2-establish connection
+		Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_db", "root", "root");
+		
+		//3-create statment 
+		Statement statement=connection.createStatement();
+		
+		//4-execute statement
+		ResultSet resultset=statement.executeQuery("select * from student");
+		
+		while(resultset.next()) {
+			System.out.println(resultset.getInt(1)+" "+ resultset.getString(2)+" "+ resultset.getLong(3) ); //bcz id in  int datatype  to op show in eclipse
+//			System.out.println(resultset.getString(2)); //bcz sname in string 
+//			System.out.println(resultset.getLong(3));   //bcz marks in Long 
+		}
+		//5-close connection
+		connection.close();
+		}
+
+}
+
+//
+Output:-
+id   sname    marks
+1     Pratik   100
+2     Vishal   99
+
+//
